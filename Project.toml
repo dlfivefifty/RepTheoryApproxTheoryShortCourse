@@ -1,0 +1,11 @@
+name = "RepTheoryApproxTheoryShortCourse"
+uuid = "92c830e8-6c2e-4086-809d-81a54f7aca1d"
+version = "0.1.0"
+authors = ["Sheehan Olver <solver@mac.com>"]
+
+[deps]
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+MultivariateOrthogonalPolynomials = "4f6956fd-4f93-5457-9149-7bfc4b2ce06d"
+
+[compat]
+CairoMakie = "0.15.11"
