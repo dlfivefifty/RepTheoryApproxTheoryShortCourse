@@ -8,7 +8,9 @@ CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 DeRhamOrthogonalPolynomials = "9bb2e211-8534-4a54-abbb-5f0d26eb73b6"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 MultivariateOrthogonalPolynomials = "4f6956fd-4f93-5457-9149-7bfc4b2ce06d"
+NumericalRepresentationTheory = "6b7c1d51-ecee-4149-97a8-50646b514dce"
 
 [compat]
 CairoMakie = "0.15.11"
 LaTeXStrings = "1.4.0"
+NumericalRepresentationTheory = "0.4.0"
