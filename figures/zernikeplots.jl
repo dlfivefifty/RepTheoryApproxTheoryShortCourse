@@ -49,6 +49,12 @@ end
         n < 1 && return zero(t)
         -(𝐯(n-1,b,t)/n + 𝐪(n,b,1,t))
     end
+
+
+r²𝒫 = m -> (𝐟,(x,y)) -> (r² = x^2+y^2; [x -y; y x]*Diagonal([1,im*sign(m)])*𝐟(r²)*yₘ(m)((x,y)))
+𝒫 = m -> (𝐟,(x,y)) -> (r² = x^2+y^2; r²𝒫(m)(𝐟,(x,y))/r²)
+𝒫⁻¹ = m -> (𝐟,t) -> t^((1-abs(m))/2) * [1 0; 0 -im*sign(m)] * 𝐟(SVector(sqrt(t),0))
+
 pᴺ = function(m,j,α,𝐱)
     if iszero(m)
         (x,y) = 𝐱
@@ -177,3 +183,33 @@ for n = 0:3, ν = 1:min(n+1,2)
     ylims!(-2,2)
     save("figures/𝐪_$n^$ν.png", fig)
 end
+
+
+
+
+
+m = 2; j = 1;
+# contourf(Z*real(Z\Weighted(DiskBubble(m))[:,j+1]))
+fig = Figure(;size=(800,800))
+ax = Axis(fig[1,1]; aspect=1) 
+streamplot!(ax, 𝐱 -> norm(𝐱) ≤ 1 ? SVector{2}(real(𝐧⁺(m,j+1,𝐱))) : NaN*𝐱, -1..1, -1..1, arrow_size=20, gridsize=(35,35), linewidth=4)
+text!(ax, 0.55, 0.82;  text=LaTeXString("Re \$𝐧_{$m$(j+1)}^+\$"), fontsize=50)
+fig
+save("figures/𝐧_$m$(j+1)^+.png", fig)
+
+
+m = 2; j = 1;
+# contourf(Z*real(Z\Weighted(DiskBubble(m))[:,j+1]))
+fig = Figure(;size=(800,800))
+ax = Axis(fig[1,1]; aspect=1) 
+streamplot!(ax, 𝐱 -> norm(𝐱) ≤ 1 ? SVector{2}(real(𝐧⁻(m,j+1,𝐱))) : NaN*𝐱, -1..1, -1..1, arrow_size=20, gridsize=(35,35), linewidth=4)
+text!(ax, 0.55, 0.82;  text=LaTeXString("Re \$𝐧_{$m$(j+1)}^-\$"), fontsize=50)
+fig
+save("figures/𝐧_$m$(j+1)^-.png", fig)
+
+
+B = Block(7)[3]
+m,j = blockindex2mj(B)
+fig = Figure(size = (800, 800)); ax = Axis(fig[1,1], aspect = 1.0)
+contourf!(ax, Z[:,B]); text!(0.6, 0.8;  text=LaTeXString((m == 0 ? "" : (m > 0 ? "Re " : "Im " )) *  "z\${}_{$(abs(m))$j}\$"), fontsize=55); fig
+save("figures/z_$m$j.png", fig)
